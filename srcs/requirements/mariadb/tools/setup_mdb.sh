@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cat << EOF > /tmp/init.sql
+ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASS}';
+CREATE DATABASE IF NOT EXISTS ${DB_NAME};
+CREATE USER IF NOT EXISTS '${DB_ADMIN_USER}'@'%' IDENTIFIED BY '${DB_ADMIN_PASS}';
+GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_ADMIN_USER}'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EOF
+
+exec mysqld --init-file=/tmp/init.sql

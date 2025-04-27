@@ -1,0 +1,11 @@
+
+Récap des différents fichiers et explications des commandes
+Suivre la correction et écrire les explications
+
+
+OK Créer l'arborescence :
+OK -> Les .sh dans les dossiers tools
+OK -> Les .conf dans les dossiers conf
+OK Alter user root dans MariaDB
+OK FTP credentials dans le .env
+OK Restart always sur les containers

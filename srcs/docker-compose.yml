@@ -1,0 +1,97 @@
+services:
+  mariadb:
+    build: requirements/mariadb/
+    container_name: mariadb42
+    restart: always
+    env_file: .env
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - inception
+
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress42
+    restart: always
+    env_file: .env
+    volumes:
+      - wp_data:/var/www/html
+    depends_on:
+      - mariadb
+      - redis
+    networks:
+      - inception
+
+  nginx:
+    build: requirements/nginx/
+    container_name: nginx42
+    restart: always
+    ports:
+      - "443:443"
+    volumes:
+      - wp_data:/var/www/html
+      - web_data:/var/www/html/website
+    depends_on:
+      - wordpress
+      - website
+    networks:
+      - inception
+
+  redis:
+    build: requirements/bonus/redis/
+    container_name: redis42
+    restart: always
+    networks:
+      - inception
+
+  ftp:
+    build: requirements/bonus/ftp/
+    container_name: ftp42
+    restart: always
+    env_file : .env
+    networks:
+      - inception
+    volumes:
+      - wp_data:/var/www/html
+    ports:
+      - "127.0.0.1:21:21"
+      - "127.0.0.1:40000:40000"
+
+  website:
+    build: requirements/bonus/website/
+    container_name: website42
+    restart: always
+    volumes:
+      - web_data:/var/www/html
+    networks:
+      - inception
+
+  adminer:
+    build: requirements/bonus/adminer/
+    container_name: adminer42
+    restart: always
+    networks:
+      - inception
+
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: '/home/qliso/data/mariadb'
+      o: bind
+  wp_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: '/home/qliso/data/wordpress'
+      o: bind
+  web_data:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      device: '/home/qliso/data/website'
+#      o: bind
+
+networks:
+  inception:
