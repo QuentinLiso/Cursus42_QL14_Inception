@@ -1,3 +1,23 @@
+# Services are the docker images that we want to build and run :
+# - build = location of the Dockerfile
+# - container_name = name of the container
+# - restart = restarts the container in case of crash
+# - env_file = file to use to generate environment variables inside the docker container
+# - volumes = used to keep files from the docker container permanently in memory
+# - network = the network we want our container to be on. Docker containers on the same network can communicate even if ports are not opened
+# - depends_on = waits for the service depended on to be built before running this service
+# - ports: ip:port = ports to open on the docker container (can specify the ip address that can access the port)
+
+# Services we want to build (according to 42 subject) :
+# Nginx : Web server software, receives  http requests and sends back files to the client
+# Wordpress : Content management system written in php, to handle websites. Needs a MySQL or MariaDB database
+# MariaDB : Database system
+# Redis : Redis is an in-memory key-value store. It can be used as a cache to speed up your WordPress website (especially database queries, sessions, objects).
+# FTP : An FTP server lets you remotely upload/download/manage files of your WordPress instance using FileZilla, WinSCP, etc.
+#       You point the FTP server's root folder to /var/www/html, so you upload themes, plugins, etc. directly.
+# Website : Static website (html file)
+# Adminer : Adminer is a lightweight database management tool — it's like phpMyAdmin, but faster, smaller, simpler. You can manage MariaDB with a nice web interface.
+
 services:
   mariadb:
     build: requirements/mariadb/
