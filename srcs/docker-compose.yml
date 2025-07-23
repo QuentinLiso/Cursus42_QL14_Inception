@@ -73,6 +73,7 @@ services:
       - inception
     volumes:
       - wp_data:/var/www/html
+      - web_data:/var/www/html/website
     ports:
       - "127.0.0.1:21:21"
       - "127.0.0.1:40000:40000"

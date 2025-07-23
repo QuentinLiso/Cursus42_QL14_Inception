@@ -23,7 +23,7 @@ inception: add-folders-volumes
 #					--rmi all : remove images
 clean: remove-host
 	docker compose -f srcs/docker-compose.yml down --volumes --rmi all
-	rm -rf /home/qliso/data/
+	sudo rm -rf /home/qliso/data/
 
 # ********************************* 4
 # creates the /home/qliso/date folders to store the containers volumes

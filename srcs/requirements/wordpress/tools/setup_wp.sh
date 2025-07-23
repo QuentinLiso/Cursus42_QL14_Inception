@@ -25,7 +25,7 @@ wp config create \
 	--allow-root
 
 wp core install \
-	--url="https://localhost" \
+	--url="https://qliso.42.fr" \
 	--title="QLISO website" \
 	--admin_user=${WP_ADMIN_USER} \
 	--admin_password=${WP_ADMIN_PASS} \
